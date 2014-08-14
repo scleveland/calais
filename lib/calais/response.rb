@@ -89,7 +89,7 @@ module Calais
 
         doc.root.xpath("rdf:Description/rdf:type[contains(@rdf:resource, '#{MATCHERS[:docinfometa]}')]/..").each do |node|
           @language = node['language']
-          @submission_date =  node['submissionDate'].nil? ? DateTime.today : DateTime.parse(node['submissionDate'])
+          @submission_date =  node['submissionDate'].nil? ? DateTime.parse(Time.now.to_s) : DateTime.parse(node['submissionDate'])
 
           attributes = extract_attributes(node.xpath("*[contains(name(), 'c:')]"))
 
