@@ -131,7 +131,7 @@ module Calais
         end
 
         @relevances = doc.root.xpath("rdf:Description/rdf:type[contains(@rdf:resource, '#{MATCHERS[:relevances]}')]/..").inject({}) do |acc, node|
-          subject_hash = node.xpath("c:subject[1]").first[:resource].split('/')[-1]
+          subject_hash = node.xpath("c:subject[1]").first[:resource].nil? ? [] : node.xpath("c:subject[1]").first[:resource].split('/')[-1]
           acc[subject_hash] = node.xpath("c:relevance[1]").first.content.to_f
 
           node.remove
