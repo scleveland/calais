@@ -173,7 +173,7 @@ module Calais
           geography.name = attributes.delete('name')
           geography.calais_hash = attributes.delete('subject')
           geography.attributes = attributes
-          geography.relevance = extract_relevance(geography.calais_hash.value)
+          geography.relevance = (geography.calais_hash == "" ? nil : extract_relevance(geography.calais_hash.value))
 
           node.remove
           geography
