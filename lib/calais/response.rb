@@ -187,7 +187,11 @@ module Calais
 
       def extract_instances(doc, hash)
         doc.root.xpath("rdf:Description/rdf:type[contains(@rdf:resource, '#{MATCHERS[:instances]}')]/..").select do |instance_node|
-          instance_node.xpath("c:subject[1]").first[:resource].split("/")[-1] == hash
+          if instance_node.xpath("c:subject[1]").first[:resource].nil?
+            false
+          else
+            instance_node.xpath("c:subject[1]").first[:resource].split("/")[-1] == hash
+          end
         end.map do |instance_node|
           instance = Instance.from_node(instance_node)
           instance_node.remove
